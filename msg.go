@@ -16,6 +16,21 @@ func NewMsg() *Msg {
 	}
 }
 
+func (msg *Msg) AnyMsg(anyMsg []*onebot.IMessage) *Msg {
+	msg.IMessageList = append(msg.IMessageList, anyMsg...)
+	return msg
+}
+
+func (msg *Msg) LongMsg(id string) *Msg {
+	msg.IMessageList = append(msg.IMessageList, &onebot.IMessage{
+		Type: "longmsg",
+		Data: map[string]any{
+			"id": id,
+		},
+	})
+	return msg
+}
+
 func (msg *Msg) Text(text string) *Msg {
 	msg.IMessageList = append(msg.IMessageList, &onebot.IMessage{
 		Type: "text",
